@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #my
     'corsheaders',
+    'todo_app',
     #other
     'users',
     'rest_framework',
@@ -131,3 +132,10 @@ CORS_ALLOWED_ORIGINS = [
    "http://localhost:3000",
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ]
+}
