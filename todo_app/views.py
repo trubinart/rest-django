@@ -1,6 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from todo_app.models import Projects, Todo
-from todo_app.serializers import ProjectsSerialaizer, TodoSerialaizer
+from todo_app.serializers import ProjectsSerialaizer, TodoSerialaizer, ProjectsSerialaizerBase
 from rest_framework.pagination import LimitOffsetPagination
 from .filters import ProjectFilter, TodoFilter
 from rest_framework.response import Response
@@ -16,6 +16,11 @@ class ProjectsModelViewSet(ModelViewSet):
    serializer_class = ProjectsSerialaizer
    pagination_class = ProjectLimitOffsetPagination
    filterset_class = ProjectFilter
+
+   def get_serializer_class(self):
+      if self.request.method in ['GET']:
+         return ProjectsSerialaizerBase
+      return ProjectsSerialaizer
 
 class TodoModelViewSet(ModelViewSet):
    queryset = Todo.objects.all()
