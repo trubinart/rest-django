@@ -19,7 +19,7 @@ class Todo(models.Model):
     todo = models.CharField(max_length=128)
     text = models.TextField(max_length=256, blank=True)
     projects = models.ForeignKey(Projects, on_delete = models.CASCADE)
-    users = models.OneToOneField(User, on_delete = models.CASCADE)
+    users = models.ForeignKey(User, on_delete = models.CASCADE)
     is_active = models.BooleanField(default=True)
     create_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
