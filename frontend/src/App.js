@@ -117,6 +117,7 @@ class App extends React.Component {
     createProject(name, text, users) {
         const headers = this.get_headers()
         const data = {name: name, text: text, users: users}
+        console.log(data)
         axios.post(`http://127.0.0.1:8000/api/projects/`, data, {headers, headers})
             .then(response => {
                 let new_project = response.data

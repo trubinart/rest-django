@@ -6,7 +6,7 @@ from users.models import User
 class UserSerialaizer(ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ('id',)
 
 class ProjectsSerialaizer(ModelSerializer):
     users = UserSerialaizer(many=True)

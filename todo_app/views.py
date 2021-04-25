@@ -4,6 +4,9 @@ from todo_app.serializers import ProjectsSerialaizer, TodoSerialaizer, ProjectsS
 from rest_framework.pagination import LimitOffsetPagination
 from .filters import ProjectFilter, TodoFilter
 from rest_framework.response import Response
+from users.models import User
+from rest_framework.parsers import JSONParser
+from rest_framework.renderers import JSONRenderer
 
 class ProjectLimitOffsetPagination(LimitOffsetPagination):
    default_limit = 10
@@ -21,6 +24,15 @@ class ProjectsModelViewSet(ModelViewSet):
       if self.request.method in ['GET']:
          return ProjectsSerialaizerBase
       return ProjectsSerialaizer
+
+   def create(self, request, *args, **kwargs):
+      print(request.data)
+      user = User.objects.get(id=request.data['users'][0]['id'])
+      new_project = Projects(name=request.data['name'], text=request.data['text'])
+      new_project.save()
+      new_project.users.set([user])
+      serializer = ProjectsSerialaizer(new_project)
+      return Response(serializer.data)
 
 class TodoModelViewSet(ModelViewSet):
    queryset = Todo.objects.all()

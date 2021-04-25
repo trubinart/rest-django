@@ -6,17 +6,25 @@ class ProjectForm extends React.Component {
         super(props)
         console.log(props.users[0].id)
         this.state = {
-            name: '', text: '', users: props.users[0].id
+            name: "", text: "", users: [{"id":props.users[0].id}]
         }
 
     }ç
 
     handleChange(event) {
-        this.setState(
+
+        if(event.target.name !== 'users'){
+            this.setState(
             {
                 [event.target.name]: event.target.value
-            }
-        );
+                }
+                )}
+            else{
+            this.setState(
+            {
+                [event.target.name]: [{"id":event.target.value}]})
+        }
+
     }
 
     handleSubmit(event) {
